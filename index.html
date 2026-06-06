@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>송쌤과학 가상실험실 · 중2 1단원 물질의 특성</title>
+<meta name="description" content="송쌤과학 중학교 2학년 1단원 물질의 특성 가상실험 모음. 재결정, 밀도, 끓는점, 용해도, 분별깔때기, 증류, 혼합물 분리 등 9개 인터랙티브 실험.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&family=Black+Han+Sans&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper: #f5efe0;
+  --paper-dark: #ebe2cc;
+  --ink: #2b2418;
+  --ink-soft: #5a4f3a;
+  --accent-red: #d94c3a;
+  --accent-blue: #3a6dd9;
+  --accent-yellow: #f4c542;
+  --accent-green: #4a8c5e;
+  --accent-purple: #8b5fbf;
+  --accent-orange: #e07a3c;
+  --accent-teal: #3aa89e;
+  --accent-pink: #d96b8c;
+  --accent-brown: #8b6b3d;
+  --accent-navy: #1f3a5f;
+  --line: #2b2418;
+  --grid: rgba(43, 36, 24, 0.06);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Gowun Dodum', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0);
+  background-size: 24px 24px;
+  line-height: 1.6;
+}
+
+/* Paper texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse at top left, rgba(212, 180, 120, 0.08), transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(180, 140, 90, 0.06), transparent 50%);
+  mix-blend-mode: multiply;
+}
+
+/* Noise texture */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.15 0 0 0 0 0.08 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 10;
+}
+
+/* ============ HEADER ============ */
+header {
+  padding: 56px 0 32px;
+  position: relative;
+}
+
+.header-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border: 1.5px solid var(--ink);
+  background: var(--paper-dark);
+  transform: rotate(-1.5deg);
+  margin-bottom: 24px;
+}
+
+.header-tag::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--accent-red);
+  border-radius: 50%;
+  animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+h1 {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 24px;
+  position: relative;
+}
+
+h1 .accent {
+  color: var(--accent-red);
+  position: relative;
+  display: inline-block;
+}
+
+h1 .accent::after {
+  content: '';
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  bottom: 8%;
+  height: 14px;
+  background: var(--accent-yellow);
+  z-index: -1;
+  transform: rotate(-1deg) skewX(-5deg);
+  opacity: 0.7;
+}
+
+.subtitle {
+  font-family: 'Gaegu', sans-serif;
+  font-size: 1.4rem;
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+  font-weight: 700;
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+  font-family: 'Gaegu', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.social-link:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.social-link.youtube { background: #ff5252; color: #fff; }
+.social-link.instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: #fff;
+}
+
+.social-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 32px 0;
+}
+
+.divider .line {
+  flex: 1;
+  height: 2px;
+  background: var(--ink);
+  position: relative;
+}
+
+.divider .line::before,
+.divider .line::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--ink);
+  border-radius: 50%;
+  top: -2px;
+}
+
+.divider .line::before { left: 0; }
+.divider .line::after { right: 0; }
+
+.divider .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+}
+
+/* ============ STATS BAR ============ */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+  padding: 24px;
+  background: var(--paper-dark);
+  border: 2px solid var(--ink);
+  position: relative;
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.stats::before {
+  content: 'EXPERIMENT INDEX';
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--ink);
+  background: var(--paper);
+  padding: 0 8px;
+}
+
+.stat {
+  text-align: left;
+}
+
+.stat-num {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.stat-num .unit {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin-left: 4px;
+}
+
+.stat-label {
+  font-family: 'Gaegu', sans-serif;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+
+/* ============ EXPERIMENT GRID ============ */
+.experiments {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 28px;
+  margin-bottom: 80px;
+}
+
+.exp-card {
+  position: relative;
+  background: var(--paper);
+  border: 2.5px solid var(--ink);
+  padding: 28px 24px 24px;
+  text-decoration: none;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  min-height: 360px;
+  box-shadow: 6px 6px 0 var(--ink);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.exp-card:nth-child(odd) { transform: rotate(-0.4deg); }
+.exp-card:nth-child(even) { transform: rotate(0.4deg); }
+.exp-card:nth-child(3n) { transform: rotate(-0.2deg); }
+
+.exp-card:hover {
+  transform: rotate(0deg) translate(-4px, -4px);
+  box-shadow: 10px 10px 0 var(--ink);
+  z-index: 5;
+}
+
+.exp-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: var(--card-color, var(--accent-blue));
+}
+
+/* Tape effect */
+.exp-card::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 24px;
+  width: 60px;
+  height: 22px;
+  background: rgba(244, 197, 66, 0.6);
+  border: 1px solid rgba(43, 36, 24, 0.15);
+  transform: rotate(8deg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.card-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.15em;
+  margin-bottom: 8px;
+}
+
+.card-illustration {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8px 0 16px;
+  position: relative;
+}
+
+.card-illustration svg {
+  max-height: 100%;
+  width: auto;
+  filter: drop-shadow(2px 3px 0 rgba(43, 36, 24, 0.15));
+}
+
+.card-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 1.45rem;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.card-subtitle {
+  font-family: 'Gaegu', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1.5px dashed var(--ink-soft);
+}
+
+.card-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.card-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Gaegu', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--card-color, var(--accent-blue));
+  color: white;
+  padding: 4px 10px;
+  border: 1.5px solid var(--ink);
+  transition: gap 0.2s ease;
+}
+
+.exp-card:hover .card-arrow {
+  gap: 10px;
+}
+
+.card-arrow svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Color variants */
+.exp-card[data-color="red"] { --card-color: var(--accent-red); }
+.exp-card[data-color="blue"] { --card-color: var(--accent-blue); }
+.exp-card[data-color="green"] { --card-color: var(--accent-green); }
+.exp-card[data-color="purple"] { --card-color: var(--accent-purple); }
+.exp-card[data-color="orange"] { --card-color: var(--accent-orange); }
+.exp-card[data-color="teal"] { --card-color: var(--accent-teal); }
+.exp-card[data-color="pink"] { --card-color: var(--accent-pink); }
+.exp-card[data-color="brown"] { --card-color: var(--accent-brown); }
+.exp-card[data-color="navy"] { --card-color: var(--accent-navy); }
+.exp-card[data-color="yellow"] { --card-color: var(--accent-yellow); }
+
+/* ============ FOOTER ============ */
+footer {
+  margin-top: 80px;
+  padding: 40px 0 60px;
+  border-top: 3px double var(--ink);
+  position: relative;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 12px;
+  background: var(--paper);
+  border-left: 3px double var(--ink);
+  border-right: 3px double var(--ink);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: center;
+}
+
+.footer-brand {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 1.6rem;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.footer-brand .dot {
+  color: var(--accent-red);
+}
+
+.footer-text {
+  font-family: 'Gaegu', sans-serif;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+.footer-text a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent-blue);
+}
+
+.footer-text a:hover {
+  color: var(--accent-red);
+  border-color: var(--accent-red);
+}
+
+.footer-social {
+  display: flex;
+  gap: 10px;
+}
+
+.copyright {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1.5px dashed var(--ink-soft);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.copyright .symbol {
+  color: var(--accent-red);
+  font-weight: 700;
+}
+
+/* ============ DECORATIVE ELEMENTS ============ */
+.deco {
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.5;
+}
+
+.deco-1 {
+  top: 80px;
+  right: 5%;
+  width: 80px;
+  transform: rotate(15deg);
+}
+
+.deco-2 {
+  bottom: 200px;
+  left: 2%;
+  width: 70px;
+  transform: rotate(-20deg);
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes float-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) rotate(var(--rot, 0deg));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(var(--rot, 0deg));
+  }
+}
+
+.exp-card {
+  animation: float-in 0.5s ease-out backwards;
+}
+
+.exp-card:nth-child(1) { animation-delay: 0.05s; }
+.exp-card:nth-child(2) { animation-delay: 0.1s; }
+.exp-card:nth-child(3) { animation-delay: 0.15s; }
+.exp-card:nth-child(4) { animation-delay: 0.2s; }
+.exp-card:nth-child(5) { animation-delay: 0.25s; }
+.exp-card:nth-child(6) { animation-delay: 0.3s; }
+.exp-card:nth-child(7) { animation-delay: 0.35s; }
+.exp-card:nth-child(8) { animation-delay: 0.4s; }
+.exp-card:nth-child(9) { animation-delay: 0.45s; }
+.exp-card:nth-child(10) { animation-delay: 0.5s; }
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  75% { transform: rotate(-2deg); }
+}
+
+/* Animated bubbles in beakers */
+.bubble {
+  animation: rise 3s ease-in infinite;
+}
+
+@keyframes rise {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-30px); opacity: 0; }
+}
+
+.exp-card:hover .card-illustration svg .anim-target {
+  animation: wiggle 0.6s ease-in-out;
+}
+
+/* ============ MOBILE ============ */
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  header { padding: 32px 0 16px; }
+  h1 { font-size: clamp(2.2rem, 9vw, 3.5rem); }
+  .subtitle { font-size: 1.15rem; }
+  .stats { grid-template-columns: repeat(2, 1fr); padding: 20px; }
+  .stat-num { font-size: 1.8rem; }
+  .experiments { grid-template-columns: 1fr; gap: 20px; }
+  .exp-card { min-height: 320px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .deco { display: none; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Decorative elements -->
+<svg class="deco deco-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="50" cy="50" r="35" fill="none" stroke="#2b2418" stroke-width="2.5" stroke-dasharray="4 6"/>
+  <circle cx="50" cy="50" r="20" fill="none" stroke="#d94c3a" stroke-width="2"/>
+  <text x="50" y="55" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="700" fill="#2b2418">EXP</text>
+</svg>
+
+<svg class="deco deco-2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20,80 Q50,20 80,80" fill="none" stroke="#3a6dd9" stroke-width="2.5" stroke-dasharray="3 4"/>
+  <circle cx="20" cy="80" r="3" fill="#2b2418"/>
+  <circle cx="80" cy="80" r="3" fill="#2b2418"/>
+  <circle cx="50" cy="42" r="4" fill="#f4c542" stroke="#2b2418" stroke-width="1.5"/>
+</svg>
+
+<div class="container">
+
+  <!-- ============ HEADER ============ -->
+  <header>
+    <div class="header-tag">중2 SCIENCE LAB / 2022 개정 교육과정</div>
+
+    <h1>송쌤과학 가상실험실<br><span class="accent">중2 1단원</span> 물질의 특성</h1>
+
+    <p class="subtitle">송쌤과학 가상실험 10종 모음</p>
+
+    <div class="social-links">
+      <a href="https://www.youtube.com/@songsamscience" target="_blank" rel="noopener" class="social-link youtube">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        YouTube @songsamscience
+      </a>
+      <a href="https://www.instagram.com/songsamscience" target="_blank" rel="noopener" class="social-link instagram">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        Instagram @songsamscience
+      </a>
+    </div>
+
+    <div class="divider">
+      <div class="line"></div>
+      <div class="label">10 EXPERIMENTS · 1 UNIT</div>
+      <div class="line"></div>
+    </div>
+  </header>
+
+  <!-- ============ STATS ============ -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">10<span class="unit">개</span></div>
+      <div class="stat-label">가상실험</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">중2<span class="unit"></span></div>
+      <div class="stat-label">학년 / 1단원</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2022<span class="unit">개정</span></div>
+      <div class="stat-label">교육과정</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100<span class="unit">%</span></div>
+      <div class="stat-label">무료 · 인터랙티브</div>
+    </div>
+  </div>
+
+  <!-- ============ EXPERIMENTS ============ -->
+  <section class="experiments" aria-label="가상실험 목록">
+
+    <!-- 1. 밀도 실험 5종 세트 -->
+    <a href="https://songsamscience.github.io/density/" target="_blank" rel="noopener" class="exp-card" data-color="blue">
+      <div class="card-num">EXP_01 / 밀도</div>
+      <div class="card-illustration">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Density tower -->
+          <rect x="40" y="30" width="40" height="80" fill="#fff" stroke="#2b2418" stroke-width="2.5" rx="2"/>
+          <!-- Layers -->
+          <rect x="42" y="50" width="36" height="14" fill="#d94c3a" opacity="0.8"/>
+          <rect x="42" y="64" width="36" height="14" fill="#f4c542" opacity="0.8"/>
+          <rect x="42" y="78" width="36" height="14" fill="#3a6dd9" opacity="0.8"/>
+          <rect x="42" y="92" width="36" height="16" fill="#4a8c5e" opacity="0.85"/>
+          <!-- Floating objects -->
+          <circle cx="60" cy="58" r="3" fill="#2b2418"/>
+          <circle cx="55" cy="71" r="2.5" fill="#fff" stroke="#2b2418" stroke-width="1"/>
+          <circle cx="65" cy="85" r="3" fill="#8b6b3d" stroke="#2b2418" stroke-width="1"/>
+          <!-- Top -->
+          <line x1="38" y1="30" x2="82" y2="30" stroke="#2b2418" stroke-width="2.5"/>
+          <!-- Label -->
+          <rect x="46" y="36" width="28" height="8" fill="none" stroke="#2b2418" stroke-width="1" stroke-dasharray="2 2"/>
+          <text x="60" y="42" text-anchor="middle" font-family="JetBrains Mono" font-size="6" fill="#2b2418">DENSITY</text>
+        </svg>
+      </div>
+      <h2 class="card-title">밀도 실험 5종 세트</h2>
+      <p class="card-subtitle">부력·물·금속 밀도 측정·밀도탑·볍씨 분리까지 완전판</p>
+      <div class="card-meta">
+        <span class="card-date">2026.03.08</span>
+        <span class="card-arrow">실험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+    <!-- 2. 용해도 곡선 분석 -->
+    <a href="https://songsamscience.github.io/Solubility-Curve/" target="_blank" rel="noopener" class="exp-card" data-color="green">
+      <div class="card-num">EXP_02 / 용해도 곡선</div>
+      <div class="card-illustration">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Graph paper background -->
+          <rect x="20" y="20" width="85" height="75" fill="#fff" stroke="#2b2418" stroke-width="2"/>
+          <!-- Grid lines -->
+          <g stroke="#4a8c5e" stroke-width="0.4" opacity="0.4">
+            <line x1="20" y1="35" x2="105" y2="35"/>
+            <line x1="20" y1="50" x2="105" y2="50"/>
+            <line x1="20" y1="65" x2="105" y2="65"/>
+            <line x1="20" y1="80" x2="105" y2="80"/>
+            <line x1="37" y1="20" x2="37" y2="95"/>
+            <line x1="54" y1="20" x2="54" y2="95"/>
+            <line x1="71" y1="20" x2="71" y2="95"/>
+            <line x1="88" y1="20" x2="88" y2="95"/>
+          </g>
+          <!-- Axes -->
+          <line x1="20" y1="95" x2="105" y2="95" stroke="#2b2418" stroke-width="2"/>
+          <line x1="20" y1="20" x2="20" y2="95" stroke="#2b2418" stroke-width="2"/>
+          <!-- Curve 1 -->
+          <path class="anim-target" d="M20,90 Q40,75 60,55 T105,25" fill="none" stroke="#d94c3a" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Curve 2 -->
+          <path d="M20,88 Q45,80 70,70 T105,55" fill="none" stroke="#3a6dd9" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Data points -->
+          <circle cx="37" cy="83" r="2.5" fill="#d94c3a" stroke="#2b2418" stroke-width="1"/>
+          <circle cx="71" cy="48" r="2.5" fill="#d94c3a" stroke="#2b2418" stroke-width="1"/>
+          <circle cx="54" cy="75" r="2.5" fill="#3a6dd9" stroke="#2b2418" stroke-width="1"/>
+          <!-- Axis labels -->
+          <text x="62" y="108" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#2b2418">온도(°C)</text>
+          <text x="14" y="58" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#2b2418" transform="rotate(-90 14 58)">용해도</text>
+        </svg>
+      </div>
+      <h2 class="card-title">용해도 곡선 분석</h2>
+      <p class="card-subtitle">곡선 해석부터 문제풀이까지 — 인터랙티브 학습</p>
+      <div class="card-meta">
+        <span class="card-date">2026.03.15</span>
+        <span class="card-arrow">실험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+    <!-- 3. 물의 양에 따른 끓는점 비교 -->
+    <a href="https://songsamscience.github.io/Comparison-of-boiling-points-of-water/" target="_blank" rel="noopener" class="exp-card" data-color="red">
+      <div class="card-num">EXP_03 / 끓는점</div>
+      <div class="card-illustration">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Two flasks side by side -->
+          <!-- Small flask -->
+          <path class="anim-target" d="M30,55 L30,75 L22,95 Q22,105 32,105 L48,105 Q58,105 58,95 L50,75 L50,55 Z" fill="#fff" stroke="#2b2418" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M24,90 L24,95 Q24,103 32,103 L48,103 Q56,103 56,95 L56,90 Z" fill="#3a6dd9" opacity="0.7"/>
+          <line x1="28" y1="55" x2="52" y2="55" stroke="#2b2418" stroke-width="2.5"/>
+          <!-- Bubbles small -->
+          <circle class="bubble" cx="35" cy="98" r="1.5" fill="#fff" style="animation-delay:0s"/>
+          <circle class="bubble" cx="42" cy="100" r="1.2" fill="#fff" style="animation-delay:0.8s"/>
+          <!-- Large flask -->
+          <path d="M70,55 L70,75 L60,95 Q60,108 75,108 L95,108 Q110,108 110,95 L100,75 L100,55 Z" fill="#fff" stroke="#2b2418" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M62,82 L62,95 Q62,106 75,106 L95,106 Q108,106 108,95 L108,82 Z" fill="#3a6dd9" opacity="0.7"/>
+          <line x1="68" y1="55" x2="102" y2="55" stroke="#2b2418" stroke-width="2.5"/>
+          <!-- Bubbles large -->
+          <circle class="bubble" cx="78" cy="98" r="2" fill="#fff" style="animation-delay:0.3s"/>
+          <circle class="bubble" cx="88" cy="100" r="1.5" fill="#fff" style="animation-delay:1.2s"/>
+          <circle class="bubble" cx="95" cy="95" r="1.8" fill="#fff" style="animation-delay:0.6s"/>
+          <!-- Steam -->
+          <path d="M38,50 Q40,42 36,38" fill="none" stroke="#d94c3a" stroke-width="2" stroke-linecap="round"/>
+          <path d="M85,50 Q88,40 84,32" fill="none" stroke="#d94c3a" stroke-width="2" stroke-linecap="round"/>
+          <path d="M92,52 Q95,42 90,35" fill="none" stroke="#d94c3a" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h2 class="card-title">물의 양에 따른 끓는점</h2>
+      <p class="card-subtitle">양이 달라도 끓는점은 같다! 물질의 특성 확인 실험</p>
+      <div class="card-meta">
+        <span class="card-date">2026.03.22</span>
+        <span class="card-arrow">실험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+    <!-- 4. 물과 에탄올의 끓는점 비교 -->
+    <a href="https://songsamscience.github.io/boiling-point-comparison/" target="_blank" rel="noopener" class="exp-card" data-color="orange">
+      <div class="card-num">EXP_04 / 끓는점 비교</div>
+      <div class="card-illustration">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Thermometer 1 -->
+          <g transform="translate(28,15)">
+            <rect x="-3" y="0" width="6" height="65" fill="#fff" stroke="#2b2418" stroke-width="2" rx="3"/>
+            <circle cx="0" cy="73" r="9" fill="#d94c3a" stroke="#2b2418" stroke-width="2"/>
+            <rect x="-2" y="35" width="4" height="38" fill="#d94c3a"/>
+            <!-- Tick marks -->
+            <line x1="3" y1="10" x2="6" y2="10" stroke="#2b2418" stroke-width="1"/>
+            <line x1="3" y1="25" x2="6" y2="25" stroke="#2b2418" stroke-width="1"/>
+            <line x1="3" y1="40" x2="6" y2="40" stroke="#2b2418" stroke-width="1"/>
+            <line x1="3" y1="55" x2="6" y2="55" stroke="#2b2418" stroke-width="1"/>
+            <text x="-12" y="13" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#2b2418">100</text>
+          </g>
+          <!-- Thermometer 2 -->
+          <g transform="translate(78,15)">
+            <rect x="-3" y="0" width="6" height="65" fill="#fff" stroke="#2b2418" stroke-width="2" rx="3"/>
+            <circle cx="0" cy="73" r="9" fill="#e07a3c" stroke="#2b2418" stroke-width="2"/>
+            <rect x="-2" y="48" width="4" height="25" fill="#e07a3c"/>
+            <line x1="3" y1="10" x2="6" y2="10" stroke="#2b2418" stroke-width="1"/>
+            <line x1="3" y1="25" x2="6" y2="25" stroke="#2b2418" stroke-width="1"/>
+            <line x1="3" y1="40" x2="6" y2="40" stroke="#2b2418" stroke-width="1"/>
+            <line x1="3" y1="55" x2="6" y2="55" stroke="#2b2418" stroke-width="1"/>
+            <text x="9" y="50" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#2b2418">78</text>
+          </g>
+          <!-- Labels -->
+          <text x="28" y="105" text-anchor="middle" font-family="Gaegu" font-size="11" font-weight="700" fill="#2b2418">물</text>
+          <text x="78" y="105" text-anchor="middle" font-family="Gaegu" font-size="11" font-weight="700" fill="#2b2418">에탄올</text>
+          <!-- VS -->
+          <text x="53" y="60" text-anchor="middle" font-family="Black Han Sans" font-size="14" fill="#2b2418">VS</text>
+        </svg>
+      </div>
+      <h2 class="card-title">물 vs 에탄올 끓는점</h2>
+      <p class="card-subtitle">물질마다 다른 고유한 끓는점, 직접 비교 실험</p>
+      <div class="card-meta">
+        <span class="card-date">2026.03.22</span>
+        <span class="card-arrow">실험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+    <!-- 5. 용해도 실험 3종 세트 -->
+    <a href="https://songsamscience.github.io/Solubility-Experiment/" target="_blank" rel="noopener" class="exp-card" data-color="teal">
+      <div class="card-num">EXP_05 / 용해도</div>
+      <div class="card-illustration">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Three test tubes -->
+          <g transform="translate(20,25)">
+            <path d="M0,0 L0,55 Q0,68 10,68 Q20,68 20,55 L20,0" fill="#fff" stroke="#2b2418" stroke-width="2.5"/>
+            <path d="M2,40 L2,55 Q2,66 10,66 Q18,66 18,55 L18,40 Z" fill="#3aa89e" opacity="0.7"/>
+            <line x1="-3" y1="0" x2="23" y2="0" stroke="#2b2418" stroke-width="2.5"/>
+          </g>
+          <g transform="translate(50,25)">
+            <path d="M0,0 L0,55 Q0,68 10,68 Q20,68 20,55 L20,0" fill="#fff" stroke="#2b2418" stroke-width="2.5"/>
+            <path d="M2,30 L2,55 Q2,66 10,66 Q18,66 18,55 L18,30 Z" fill="#3aa89e" opacity="0.85"/>
+            <line x1="-3" y1="0" x2="23" y2="0" stroke="#2b2418" stroke-width="2.5"/>
+            <!-- Particles -->
+            <circle cx="7" cy="50" r="1.2" fill="#2b2418"/>
+            <circle cx="13" cy="55" r="1" fill="#2b2418"/>
+            <circle cx="9" cy="60" r="1.2" fill="#2b2418"/>
+          </g>
+          <g transform="translate(80,25)">
+            <path d="M0,0 L0,55 Q0,68 10,68 Q20,68 20,55 L20,0" fill="#fff" stroke="#2b2418" stroke-width="2.5"/>
+            <path d="M2,18 L2,55 Q2,66 10,66 Q18,66 18,55 L18,18 Z" fill="#3aa89e"/>
+            <line x1="-3" y1="0" x2="23" y2="0" stroke="#2b2418" stroke-width="2.5"/>
+            <!-- Lots of particles (saturated) -->
+            <circle cx="7" cy="35" r="1.2" fill="#2b2418"/>
+            <circle cx="13" cy="42" r="1.2" fill="#2b2418"/>
+            <circle cx="9" cy="52" r="1.4" fill="#2b2418"/>
+            <circle cx="14" cy="58" r="1.3" fill="#2b2418"/>
+            <circle cx="8" cy="63" r="1.2" fill="#2b2418"/>
+            <circle cx="13" cy="63" r="1.2" fill="#2b2418"/>
+          </g>
+          <!-- Temperature labels -->
+          <text x="30" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#2b2418">20°</text>
+          <text x="60" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#2b2418">40°</text>
+          <text x="90" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#2b2418">60°</text>
+        </svg>
+      </div>
+      <h2 class="card-title">용해도 실험 3종</h2>
+      <p class="card-subtitle">온도에 따른 용해도 변화를 직접 관찰하는 실험 모음</p>
+      <div class="card-meta">
+        <span class="card-date">2026.03.29</span>
+        <span class="card-arrow">실험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+    <!-- 6. 재결정 실험 -->
+    <a href="https://songsamscience.github.io/Fractional-Crystallization/" target="_blank" rel="noopener" class="exp-card" data-color="purple">
+      <div class="card-num">EXP_06 / 물질의 구성</div>
+      <div class="card-illustration">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Beaker -->
+          <path class="anim-target" d="M30,40 L30,95 Q30,105 40,105 L80,105 Q90,105 90,95 L90,40 Z" fill="#e8e3f0" stroke="#2b2418" stroke-width="2.5" stroke-linejoin="round"/>
+          <!-- Liquid -->
+          <path d="M32,70 L32,93 Q32,103 40,103 L80,103 Q88,103 88,93 L88,70 Z" fill="#8b5fbf" opacity="0.7"/>
+          <!-- Crystals -->
+          <polygon points="45,85 50,75 55,85 50,95" fill="#fff" stroke="#2b2418" stroke-width="1.5"/>
+          <polygon points="62,90 68,82 74,90 68,98" fill="#fff" stroke="#2b2418" stroke-width="1.5"/>
+          <polygon points="55,98 58,92 62,98 58,103" fill="#fff" stroke="#2b2418" stroke-width="1.2"/>
+          <!-- Top rim -->
+          <line x1="28" y1="40" x2="92" y2="40" stroke="#2b2418" stroke-width="2.5"/>
+          <line x1="28" y1="38" x2="35" y2="38" stroke="#2b2418" stroke-width="2.5"/>
+          <line x1="85" y1="38" x2="92" y2="38" stroke="#2b2418" stroke-width="2.5"/>
+          <!-- Steam/sparkle -->
+          <circle cx="50" cy="25" r="2" fill="#8b5fbf"/>
+          <circle cx="65" cy="20" r="1.5" fill="#8b5fbf"/>
+          <circle cx="75" cy="28" r="2" fill="#8b5fbf"/>
+        </svg>
+      </div>
+      <h2 class="card-title">재결정 실험</h2>
+      <p class="card-subtitle">용해도 차이를 이용한 4가지 물질의 재결정 시뮬레이션</p>
+      <div class="card-meta">
+        <span class="card-date">2026.03.31</span>
+        <span class="card-arrow">실험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+    <!-- 7. 분별깔때기 실험 -->
+    <a href="https://songsamscience.github.io/separatory-funnel/" target="_blank" rel="noopener" class="exp-card" data-color="yellow">
+      <div class="card-num">EXP_07 / 분별깔때기</div>
+      <div class="card-illustration">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Stand -->
+          <rect x="15" y="100" width="40" height="6" fill="#8b6b3d" stroke="#2b2418" stroke-width="2"/>
+          <line x1="35" y1="100" x2="35" y2="20" stroke="#2b2418" stroke-width="2.5"/>
+          <!-- Clamp -->
+          <rect x="35" y="42" width="20" height="6" fill="#2b2418"/>
+          <!-- Funnel -->
+          <g transform="translate(60,15)">
+            <!-- Top -->
+            <line x1="-12" y1="0" x2="12" y2="0" stroke="#2b2418" stroke-width="2.5"/>
+            <line x1="-2" y1="-5" x2="2" y2="-5" stroke="#2b2418" stroke-width="2.5"/>
+            <line x1="-2" y1="-5" x2="-2" y2="0" stroke="#2b2418" stroke-width="2.5"/>
+            <line x1="2" y1="-5" x2="2" y2="0" stroke="#2b2418" stroke-width="2.5"/>
+            <!-- Bulb -->
+            <ellipse cx="0" cy="25" rx="14" ry="22" fill="#fff" stroke="#2b2418" stroke-width="2.5"/>
+            <!-- Oil layer (top, yellow) -->
+            <path d="M-13.8,12 Q-13.8,30 -2,30 Q14,30 13.8,12 L-13.8,12 Z" fill="#f4c542" opacity="0.9" stroke="none"/>
+            <line x1="-13.8" y1="22" x2="13.8" y2="22" stroke="#2b2418" stroke-width="0.8" stroke-dasharray="2 2"/>
+            <!-- Water layer (bottom, blue) -->
+            <path d="M-13.8,22 Q-12,46 0,46 Q12,46 13.8,22 Z" fill="#3a6dd9" opacity="0.7"/>
+            <!-- Stopcock -->
+            <rect x="-2" y="48" width="4" height="8" fill="#2b2418"/>
+            <circle cx="6" cy="52" r="3" fill="#d94c3a" stroke="#2b2418" stroke-width="1.5"/>
+            <!-- Stem -->
+            <line x1="0" y1="56" x2="0" y2="68" stroke="#2b2418" stroke-width="2"/>
+            <!-- Drop -->
+            <circle cx="0" cy="75" r="2" fill="#3a6dd9"/>
+          </g>
+          <!-- Beaker below -->
+          <path d="M50,90 L50,108 Q50,112 54,112 L66,112 Q70,112 70,108 L70,90 Z" fill="none" stroke="#2b2418" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <h2 class="card-title">분별깔때기 실험</h2>
+      <p class="card-subtitle">물과 콩기름의 밀도 차이를 이용한 액체 분리</p>
+      <div class="card-meta">
+        <span class="card-date">2026.04.01</span>
+        <span class="card-arrow">실험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+    <!-- 8. 에탄올과 물의 혼합물 증류 -->
+    <a href="https://songsamscience.github.io/Distillation-Lab/" target="_blank" rel="noopener" class="exp-card" data-color="pink">
+      <div class="card-num">EXP_08 / 증류</div>
+      <div class="card-illustration">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Distillation flask (left) -->
+          <g transform="translate(20,40)">
+            <path d="M0,0 L0,12 L-10,30 Q-10,42 5,42 L25,42 Q40,42 40,30 L30,12 L30,0 Z" fill="#fff" stroke="#2b2418" stroke-width="2"/>
+            <line x1="-3" y1="0" x2="33" y2="0" stroke="#2b2418" stroke-width="2"/>
+            <path d="M-9,28 Q-9,40 5,40 L25,40 Q39,40 39,28 L39,25 Q-9,25 -9,28 Z" fill="#d96b8c" opacity="0.6"/>
+            <!-- Bubbles -->
+            <circle class="bubble" cx="10" cy="35" r="1.5" fill="#fff" style="animation-delay:0s"/>
+            <circle class="bubble" cx="20" cy="38" r="1.2" fill="#fff" style="animation-delay:0.5s"/>
+          </g>
+          <!-- Connecting tube -->
+          <path d="M50,40 Q70,38 85,55" fill="none" stroke="#2b2418" stroke-width="2" stroke-linecap="round"/>
+          <path d="M50,42 Q70,40 85,57" fill="none" stroke="#2b2418" stroke-width="2" stroke-linecap="round"/>
+          <!-- Steam in tube -->
+          <circle cx="58" cy="40" r="1" fill="#d96b8c" opacity="0.5"/>
+          <circle cx="68" cy="42" r="1" fill="#d96b8c" opacity="0.5"/>
+          <circle cx="76" cy="48" r="1" fill="#d96b8c" opacity="0.5"/>
+          <!-- Receiving flask (right) -->
+          <g transform="translate(85,55)">
+            <path d="M0,0 L0,8 L-5,22 Q-5,32 8,32 L18,32 Q28,32 28,22 L23,8 L23,0 Z" fill="#fff" stroke="#2b2418" stroke-width="2"/>
+            <line x1="-2" y1="0" x2="25" y2="0" stroke="#2b2418" stroke-width="2"/>
+            <path d="M-5,25 Q-5,30 8,30 L18,30 Q27,30 27,25 L27,22 Q-5,22 -5,25 Z" fill="#d96b8c" opacity="0.4"/>
+          </g>
+          <!-- Heat source -->
+          <g transform="translate(35,92)">
+            <path d="M-8,5 L-8,12 L8,12 L8,5 Z" fill="#2b2418"/>
+            <path d="M-3,0 Q-5,-3 -3,-6 Q0,-3 -2,0" fill="#d94c3a"/>
+            <path d="M0,0 Q-2,-4 0,-8 Q3,-4 1,0" fill="#e07a3c"/>
+            <path d="M3,0 Q1,-3 3,-6 Q6,-3 4,0" fill="#f4c542"/>
+          </g>
+        </svg>
+      </div>
+      <h2 class="card-title">에탄올·물 증류</h2>
+      <p class="card-subtitle">끓는점 차이를 이용한 혼합물 증류 분리 실험</p>
+      <div class="card-meta">
+        <span class="card-date">2026.04.04</span>
+        <span class="card-arrow">실험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+    <!-- 9. 혼합물 분리 실험 퀴즈 -->
+    <a href="https://songsamscience.github.io/Separating-Mixtures/" target="_blank" rel="noopener" class="exp-card" data-color="brown">
+      <div class="card-num">EXP_09 / 종합 퀴즈</div>
+      <div class="card-illustration">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Question card stack -->
+          <rect x="20" y="35" width="65" height="55" fill="#f4c542" stroke="#2b2418" stroke-width="2" transform="rotate(-6 52 62)"/>
+          <rect x="28" y="30" width="65" height="55" fill="#3aa89e" stroke="#2b2418" stroke-width="2" transform="rotate(3 60 57)"/>
+          <rect x="32" y="28" width="65" height="55" fill="#fff" stroke="#2b2418" stroke-width="2.5"/>
+          <!-- Question mark -->
+          <text x="64" y="62" text-anchor="middle" font-family="Black Han Sans" font-size="32" fill="#8b6b3d">?</text>
+          <!-- Lab elements around -->
+          <!-- Magnet -->
+          <g transform="translate(25,90)">
+            <path d="M0,0 L0,8 L4,8 L4,4 L8,4 L8,8 L12,8 L12,0 Z" fill="#d94c3a" stroke="#2b2418" stroke-width="1.5"/>
+          </g>
+          <!-- Filter paper -->
+          <g transform="translate(95,15)">
+            <path d="M0,0 L8,0 L4,8 Z" fill="#fff" stroke="#2b2418" stroke-width="1.5"/>
+          </g>
+          <!-- Drag arrow indicators -->
+          <g transform="translate(100,92)" opacity="0.7">
+            <circle cx="0" cy="0" r="6" fill="#d94c3a" stroke="#2b2418" stroke-width="1.5"/>
+            <text x="0" y="2.5" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#fff">!</text>
+          </g>
+          <!-- Sparkles -->
+          <g fill="#f4c542" stroke="#2b2418" stroke-width="0.8">
+            <polygon points="15,20 17,16 19,20 17,24"/>
+            <polygon points="105,55 107,52 109,55 107,58"/>
+          </g>
+        </svg>
+      </div>
+      <h2 class="card-title">혼합물 분리 퀴즈</h2>
+      <p class="card-subtitle">탐구형 미션 게임으로 단원 정리하기</p>
+      <div class="card-meta">
+        <span class="card-date">2026.04.04</span>
+        <span class="card-arrow">실험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+    <!-- 10. 원유증류탑 분별증류 -->
+    <a href="https://songsamscience.github.io/Crude-Distillation-Unit/" target="_blank" rel="noopener" class="exp-card" data-color="navy">
+      <div class="card-num">EXP_10 / 원유 분별증류</div>
+      <div class="card-illustration">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Ground line -->
+          <line x1="8" y1="108" x2="112" y2="108" stroke="#2b2418" stroke-width="2"/>
+          <!-- Tower base -->
+          <rect x="48" y="100" width="24" height="8" fill="#8b6b3d" stroke="#2b2418" stroke-width="2"/>
+          <!-- Main distillation column -->
+          <rect class="anim-target" x="42" y="20" width="36" height="80" fill="#fff" stroke="#2b2418" stroke-width="2.5" rx="2"/>
+          <!-- Dome top -->
+          <path d="M42,22 Q42,12 60,12 Q78,12 78,22" fill="#fff" stroke="#2b2418" stroke-width="2.5"/>
+          <!-- Internal trays (horizontal lines) -->
+          <line x1="44" y1="32" x2="76" y2="32" stroke="#2b2418" stroke-width="1" stroke-dasharray="2 2"/>
+          <line x1="44" y1="45" x2="76" y2="45" stroke="#2b2418" stroke-width="1" stroke-dasharray="2 2"/>
+          <line x1="44" y1="58" x2="76" y2="58" stroke="#2b2418" stroke-width="1" stroke-dasharray="2 2"/>
+          <line x1="44" y1="71" x2="76" y2="71" stroke="#2b2418" stroke-width="1" stroke-dasharray="2 2"/>
+          <line x1="44" y1="84" x2="76" y2="84" stroke="#2b2418" stroke-width="1" stroke-dasharray="2 2"/>
+          <!-- Fraction layers (top = light/cool, bottom = heavy/hot) -->
+          <rect x="44" y="22" width="32" height="10" fill="#f4c542" opacity="0.5"/>
+          <rect x="44" y="33" width="32" height="12" fill="#e07a3c" opacity="0.55"/>
+          <rect x="44" y="46" width="32" height="12" fill="#d96b8c" opacity="0.5"/>
+          <rect x="44" y="59" width="32" height="12" fill="#8b5fbf" opacity="0.45"/>
+          <rect x="44" y="72" width="32" height="12" fill="#3a6dd9" opacity="0.45"/>
+          <rect x="44" y="85" width="32" height="15" fill="#2b2418" opacity="0.55"/>
+          <!-- Output pipes (left side, one per fraction) -->
+          <!-- LPG (top) -->
+          <line x1="42" y1="26" x2="28" y2="26" stroke="#2b2418" stroke-width="2"/>
+          <circle cx="25" cy="26" r="2.5" fill="#f4c542" stroke="#2b2418" stroke-width="1.5"/>
+          <!-- Gasoline -->
+          <line x1="42" y1="39" x2="22" y2="39" stroke="#2b2418" stroke-width="2"/>
+          <circle cx="19" cy="39" r="2.5" fill="#e07a3c" stroke="#2b2418" stroke-width="1.5"/>
+          <!-- Kerosene -->
+          <line x1="42" y1="52" x2="16" y2="52" stroke="#2b2418" stroke-width="2"/>
+          <circle cx="13" cy="52" r="2.5" fill="#d96b8c" stroke="#2b2418" stroke-width="1.5"/>
+          <!-- Output pipes (right side) -->
+          <!-- Diesel -->
+          <line x1="78" y1="65" x2="98" y2="65" stroke="#2b2418" stroke-width="2"/>
+          <circle cx="101" cy="65" r="2.5" fill="#8b5fbf" stroke="#2b2418" stroke-width="1.5"/>
+          <!-- Lubricant -->
+          <line x1="78" y1="78" x2="104" y2="78" stroke="#2b2418" stroke-width="2"/>
+          <circle cx="107" cy="78" r="2.5" fill="#3a6dd9" stroke="#2b2418" stroke-width="1.5"/>
+          <!-- Residue (bottom) -->
+          <line x1="78" y1="92" x2="110" y2="92" stroke="#2b2418" stroke-width="2"/>
+          <circle cx="113" cy="92" r="2.5" fill="#2b2418"/>
+          <!-- Crude oil inlet (bottom left) -->
+          <line x1="32" y1="95" x2="42" y2="95" stroke="#2b2418" stroke-width="2.5"/>
+          <polygon points="32,93 28,95 32,97" fill="#2b2418"/>
+          <!-- Heat source flames at bottom -->
+          <g transform="translate(60,103)">
+            <path d="M-6,0 Q-8,-4 -6,-7 Q-3,-4 -5,0" fill="#d94c3a"/>
+            <path d="M-2,0 Q-4,-6 -1,-9 Q2,-6 0,0" fill="#e07a3c"/>
+            <path d="M2,0 Q0,-4 3,-7 Q6,-4 4,0" fill="#f4c542"/>
+          </g>
+          <!-- Steam/vapor at top -->
+          <circle cx="55" cy="8" r="1.5" fill="#1f3a5f" opacity="0.4"/>
+          <circle cx="62" cy="5" r="2" fill="#1f3a5f" opacity="0.4"/>
+          <circle cx="68" cy="8" r="1.5" fill="#1f3a5f" opacity="0.4"/>
+          <!-- Temperature gradient indicator -->
+          <text x="6" y="22" font-family="JetBrains Mono" font-size="6" font-weight="700" fill="#3a6dd9">차가움</text>
+          <text x="6" y="103" font-family="JetBrains Mono" font-size="6" font-weight="700" fill="#d94c3a">뜨거움</text>
+        </svg>
+      </div>
+      <h2 class="card-title">원유증류탑 분별증류</h2>
+      <p class="card-subtitle">끓는점 차로 원유를 6가지 성분으로 분리하는 산업 현장 시뮬레이션</p>
+      <div class="card-meta">
+        <span class="card-date">2026.06.04</span>
+        <span class="card-arrow">실험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">송쌤<span class="dot">·</span>과학</div>
+        <p class="footer-text">
+          중학교 과학교사 송쌤과학이 운영하는 과학 교육 채널.<br>
+          2022 개정 교육과정 기반 인터랙티브 가상실험을 제공 및 업데이트 합니다.
+        </p>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.youtube.com/@songsamscience" target="_blank" rel="noopener" class="social-link youtube" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          YouTube
+        </a>
+        <a href="https://www.instagram.com/songsamscience" target="_blank" rel="noopener" class="social-link instagram" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <span class="symbol">©</span> 2026 송쌤과학 (SongSSam Science). All Rights Reserved. ·
+      본 페이지에 포함된 모든 가상실험 콘텐츠는 송쌤과학의 저작물이며, 무단 복제 및 재배포를 금지합니다.
+    </div>
+  </footer>
+
+</div>
+
+<script>
+// Subtle parallax on decoration
+document.addEventListener('mousemove', (e) => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 10;
+  const y = (e.clientY / window.innerHeight - 0.5) * 10;
+  document.querySelectorAll('.deco').forEach((el, i) => {
+    const factor = i % 2 === 0 ? 1 : -1;
+    el.style.transform = `translate(${x * factor}px, ${y * factor}px) rotate(${i % 2 === 0 ? 15 : -20}deg)`;
+  });
+});
+
+// Card hover sound effect (subtle)
+document.querySelectorAll('.exp-card').forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    card.style.zIndex = '5';
+  });
+  card.addEventListener('mouseleave', () => {
+    setTimeout(() => { card.style.zIndex = ''; }, 200);
+  });
+});
+</script>
+
+</body>
+</html>
